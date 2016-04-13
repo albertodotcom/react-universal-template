@@ -10,6 +10,7 @@ import App from './containers/App';
 const app = Express();
 const port = 3000;
 
+app.use('/dist', Express.static('dist'));
 app.use(handleRender);
 
 function renderFullPage(html, initialState) {
@@ -24,7 +25,7 @@ function renderFullPage(html, initialState) {
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script src="/static/bundle.js"></script>
+        <script src="/dist/bundle.js"></script>
       </body>
     </html>
   `;
