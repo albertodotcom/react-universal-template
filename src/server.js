@@ -3,7 +3,7 @@ import Express from 'express';
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import { renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server';
 import todosApp from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import { match, RouterContext } from 'react-router';
