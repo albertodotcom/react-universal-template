@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'
-import { completeTodo } from '../actions/todos.js';
+import { completeTodo, fetchTodos } from '../actions/todos.js';
 
 const mapStateToProps = (state) => {
   return {
@@ -13,14 +13,26 @@ const mapDispatchToProps = (dispatch) => {
     onClick: (id) => {
       dispatch(completeTodo(id));
     },
+    fetchTodos: () => {
+      dispatch(fetchTodos());
+    }
   }
 };
 
 export class App extends React.Component {
+  static fetchData(dispatch) {
+    return dispatch(fetchTodos());
+  }
+
   renderEl(todos, onClick) {
     return todos.map((todo, i) => {
       return (
-        <li key={i}>{todo.text} - {todo.completed}</li>
+        <li
+            key={i}
+            style={{textDecoration : todo.completed ? 'line-through' : 'none' }}
+            onClick={() => onClick(i)}>
+          {todo.text}
+        </li>
       );
     });
   }

@@ -1,18 +1,9 @@
-import { ADD_TODO, COMPLETE_TODO } from '../actions/todos.js';
+import { ADD_TODO, COMPLETE_TODO, RECEIVE_TODOS } from '../actions/todos.js';
 
-const initialState = [
-  {
-    text: 'buy milk',
-    completed: false,
-  },
-  {
-    text: 'buy butter',
-    completed: true,
-  },
-];
-
-export default function todos(state = initialState, action) {
+export default function todos(state = [], action) {
   switch (action.type) {
+    case RECEIVE_TODOS:
+      return action.todos;
     case ADD_TODO:
       return [
         ...state,

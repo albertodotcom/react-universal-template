@@ -1,11 +1,12 @@
 import path from 'path';
 import Express from 'express';
 import React from 'react';
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server'
-import counterApp from './reducers';
+import todosApp from './reducers';
 import App from './containers/App';
+import thunkMiddleware from 'redux-thunk';
 
 const app = Express();
 const port = 3000;
@@ -34,9 +35,16 @@ function renderFullPage(html, initialState) {
   `;
 };
 
-function handleRender(req, res) {
+async function handleRender(req, res) {
   // Create a new Redux store instance
-  const store = createStore(counterApp);
+  const store = createStore(
+    todosApp,
+    applyMiddleware(
+      thunkMiddleware, // lets us dispatch() functions
+    )
+  );
+
+  await App.fetchData(store.dispatch);
 
   // Render the component to a string
   const html = renderToString(
@@ -47,7 +55,7 @@ function handleRender(req, res) {
 
   // Grab the initial state from our Redux store
   const initialState = store.getState();
-  console.log(JSON.stringify(initialState, null, 2));
+
   // Send the rendered page back to the client
   res.send(renderFullPage(html, initialState));
 }
