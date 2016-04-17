@@ -3,10 +3,10 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import App from './containers/App';
 import todosApp from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
+import routes from './routes';
 
 // Grab the state from a global injected into server-generated HTML
 const initialState = window.__INITIAL_STATE__;
@@ -25,7 +25,7 @@ const store = createStore(
 
 render(
   <Provider store={store}>
-    <App />
+    {routes}
   </Provider>,
   document.getElementById('root')
 );

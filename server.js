@@ -5,15 +5,16 @@ import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server'
 import todosApp from './reducers';
-import App from './containers/App';
 import thunkMiddleware from 'redux-thunk';
+import { match, RouterContext } from 'react-router';
+import routes from './routes';
 
 const app = Express();
 const port = 3000;
 
 app.use('/dist', Express.static('dist'));
 app.use(Express.static('public'));
-app.use(handleRender);
+app.use(handlePageRequest);
 
 function renderFullPage(html, initialState) {
   return `
@@ -35,29 +36,51 @@ function renderFullPage(html, initialState) {
   `;
 };
 
-async function handleRender(req, res) {
+function handlePageRequest(req, res) {
+  match({ routes, location: req.url }, async (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    } else if (renderProps) {
+      // You can also check renderProps.components or renderProps.routes for
+      // your "not found" component or route respectively, and send a 404 as
+      // below, if you're using a catch-all route.
+      res.status(200).send(await handleRender(RouterContext, renderProps));
+    } else {
+      res.status(404).send('Not found')
+    }
+  });
+}
+
+async function handleRender(RouterContext, renderProps) {
   // Create a new Redux store instance
   const store = createStore(
     todosApp,
     applyMiddleware(
-      thunkMiddleware, // lets us dispatch() functions
+      thunkMiddleware,
     )
   );
 
-  await App.fetchData(store.dispatch);
+  const dataFetching = renderProps.components
+    .filter(c => c && typeof c.fetchData)
+    .map(fetchDataComponent => {
+      return fetchDataComponent.fetchData(store.dispatch);
+    });
+
+  await Promise.all(dataFetching);
 
   // Render the component to a string
   const html = renderToString(
     <Provider store={store}>
-      <App />
+      <RouterContext {...renderProps} />
     </Provider>
   )
-
   // Grab the initial state from our Redux store
   const initialState = store.getState();
 
   // Send the rendered page back to the client
-  res.send(renderFullPage(html, initialState));
+  return renderFullPage(html, initialState);
 }
 
 app.listen(port);
