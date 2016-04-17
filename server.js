@@ -11,6 +11,7 @@ const app = Express();
 const port = 3000;
 
 app.use('/dist', Express.static('dist'));
+app.use(Express.static('public'));
 app.use(handleRender);
 
 function renderFullPage(html, initialState) {
@@ -19,6 +20,8 @@ function renderFullPage(html, initialState) {
     <html>
       <head>
         <title>Redux Universal Example</title>
+        <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="icon" href="/favicon.ico" type="image/x-icon">
       </head>
       <body>
         <div id="root">${html}</div>
@@ -44,7 +47,7 @@ function handleRender(req, res) {
 
   // Grab the initial state from our Redux store
   const initialState = store.getState();
-
+  console.log(JSON.stringify(initialState, null, 2));
   // Send the rendered page back to the client
   res.send(renderFullPage(html, initialState));
 }
