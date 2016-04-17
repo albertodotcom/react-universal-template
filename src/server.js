@@ -1,4 +1,3 @@
-import path from 'path';
 import Express from 'express';
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
@@ -34,7 +33,7 @@ function renderFullPage(html, initialState) {
       </body>
     </html>
   `;
-};
+}
 
 function handlePageRequest(req, res) {
   match({ routes, location: req.url }, async (error, redirectLocation, renderProps) => {
@@ -48,7 +47,7 @@ function handlePageRequest(req, res) {
       // below, if you're using a catch-all route.
       res.status(200).send(await handleRender(RouterContext, renderProps));
     } else {
-      res.status(404).send('Not found')
+      res.status(404).send('Not found');
     }
   });
 }
@@ -75,7 +74,7 @@ async function handleRender(RouterContext, renderProps) {
     <Provider store={store}>
       <RouterContext {...renderProps} />
     </Provider>
-  )
+  );
   // Grab the initial state from our Redux store
   const initialState = store.getState();
 

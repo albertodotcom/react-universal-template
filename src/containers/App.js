@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux'
+import React, { PropTypes } from 'react';
+import { connect } from 'react-redux';
 import { completeTodo, fetchTodos } from '../actions/todos.js';
 
 const mapStateToProps = (state) => {
   return {
     todos: state.todos,
-  }
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
@@ -15,14 +15,19 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchTodos: () => {
       dispatch(fetchTodos());
-    }
-  }
+    },
+  };
 };
 
 export class App extends React.Component {
   static fetchData(dispatch) {
     return dispatch(fetchTodos());
   }
+
+  static propTypes = {
+    todos: PropTypes.array.isRequired,
+    onClick: PropTypes.function.isRequired,
+  };
 
   renderEl(todos, onClick) {
     return todos.map((todo, i) => {

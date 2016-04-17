@@ -20,7 +20,7 @@ export function receiveTodos(todos) {
   return {
     type: RECEIVE_TODOS,
     todos,
-  }
+  };
 }
 
 const todos = [
