@@ -3,7 +3,7 @@ import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { renderToString } from 'react-dom/server';
-import todosApp from './reducers';
+import reducers from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import { match, RouterContext } from 'react-router';
 import routes from './routes';
@@ -40,7 +40,7 @@ function renderFullPage(html, initialState) {
 function handlePageRequest(req, res) {
   // Create a new Redux store instance
   const store = createStore(
-    todosApp,
+    reducers,
     applyMiddleware(
       thunkMiddleware,
     )

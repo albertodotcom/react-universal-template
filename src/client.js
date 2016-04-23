@@ -3,7 +3,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
-import todosApp from './reducers';
+import reducers from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
 import routes from './routes';
@@ -17,7 +17,7 @@ const loggerMiddleware = createLogger();
 
 // Create Redux store with initial state
 const store = createStore(
-  todosApp,
+  reducers,
   initialState,
   applyMiddleware(
     thunkMiddleware, // lets us dispatch() functions
