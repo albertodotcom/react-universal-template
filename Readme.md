@@ -43,7 +43,8 @@ class Posts extends React.Component {
 
 ## TODO
 
-- [ ] cleanup and refactor
+- [x] add history to router
+- [ ] add devTools
 - [ ] remove todo example
 - [ ] add flow types
 - [x] add eslint

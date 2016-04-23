@@ -6,7 +6,9 @@ import { renderToString } from 'react-dom/server';
 import todosApp from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import { match, RouterContext } from 'react-router';
-import routes from './routes';
+import { routes } from './routes';
+import { syncHistoryWithStore } from 'react-router-redux';
+import createMemoryHistory from 'history/lib/createMemoryHistory';
 
 const app = Express();
 const port = 3000;
@@ -36,23 +38,6 @@ function renderFullPage(html, initialState) {
 }
 
 function handlePageRequest(req, res) {
-  match({ routes, location: req.url }, async (error, redirectLocation, renderProps) => {
-    if (error) {
-      res.status(500).send(error.message);
-    } else if (redirectLocation) {
-      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
-    } else if (renderProps) {
-      // You can also check renderProps.components or renderProps.routes for
-      // your "not found" component or route respectively, and send a 404 as
-      // below, if you're using a catch-all route.
-      res.status(200).send(await handleRender(RouterContext, renderProps));
-    } else {
-      res.status(404).send('Not found');
-    }
-  });
-}
-
-async function handleRender(RouterContext, renderProps) {
   // Create a new Redux store instance
   const store = createStore(
     todosApp,
@@ -61,6 +46,25 @@ async function handleRender(RouterContext, renderProps) {
     )
   );
 
+  const history = syncHistoryWithStore(createMemoryHistory(req.url), store);
+
+  match({ routes: routes(history), location: req.url }, async (error, redirectLocation, renderProps) => {
+    if (error) {
+      res.status(500).send(error.message);
+    } else if (redirectLocation) {
+      res.redirect(302, redirectLocation.pathname + redirectLocation.search);
+    } else if (renderProps) {
+      // You can also check renderProps.components or renderProps.routes for
+      // your "not found" component or route respectively, and send a 404 as
+      // below, if you're using a catch-all route.
+      res.status(200).send(await handleRender(RouterContext, renderProps, store));
+    } else {
+      res.status(404).send('Not found');
+    }
+  });
+}
+
+async function handleRender(RouterContext, renderProps, store) {
   const dataFetching = renderProps.components
     .filter(c => c && typeof c.fetchData)
     .map(fetchDataComponent => {

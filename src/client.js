@@ -6,7 +6,9 @@ import { Provider } from 'react-redux';
 import todosApp from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import createLogger from 'redux-logger';
-import routes from './routes';
+import { routes } from './routes';
+import { syncHistoryWithStore } from 'react-router-redux';
+import { browserHistory } from 'react-router';
 
 // Grab the state from a global injected into server-generated HTML
 const initialState = window.__INITIAL_STATE__;
@@ -23,9 +25,11 @@ const store = createStore(
   )
 );
 
+const history = syncHistoryWithStore(browserHistory, store);
+
 render(
   <Provider store={store}>
-    {routes}
+    {routes(history)}
   </Provider>,
   document.getElementById('root')
 );

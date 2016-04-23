@@ -26,7 +26,7 @@ export class App extends React.Component {
 
   static propTypes = {
     todos: PropTypes.array.isRequired,
-    onClick: PropTypes.function.isRequired,
+    onClick: PropTypes.func.isRequired,
   };
 
   renderEl(todos, onClick) {
