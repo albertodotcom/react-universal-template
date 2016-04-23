@@ -6,7 +6,7 @@ import { renderToString } from 'react-dom/server';
 import todosApp from './reducers';
 import thunkMiddleware from 'redux-thunk';
 import { match, RouterContext } from 'react-router';
-import { routes } from './routes';
+import routes from './routes';
 import { syncHistoryWithStore } from 'react-router-redux';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
 
@@ -48,7 +48,7 @@ function handlePageRequest(req, res) {
 
   const history = syncHistoryWithStore(createMemoryHistory(req.url), store);
 
-  match({ routes: routes(history), location: req.url }, async (error, redirectLocation, renderProps) => {
+  match({ routes: routes({history}), location: req.url }, async (error, redirectLocation, renderProps) => {
     if (error) {
       res.status(500).send(error.message);
     } else if (redirectLocation) {

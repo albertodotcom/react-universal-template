@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 import { Router, Route } from 'react-router';
 import App from './containers/App';
 
-export const routes = (history) => {
+export default function Routes({history}) {
   return (
     <Router history={history}>
       <Route path="/" component={App} />
     </Router>
   );
+}
+
+Routes.propTypes = {
+  history: PropTypes.object.isRequired,
 };
