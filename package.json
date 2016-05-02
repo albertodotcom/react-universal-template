@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "server": "nodemon --delay 1 index.js",
-    "client": "webpack-dev-server --config ./webpack/webpack.config.dev.babel.js --hot --inline --port=3001 --content-base=http://localhost:3001 --no-info"
+    "client": "node --require babel-register ./webpack/webpackDevServer.js"
   },
   "keywords": [
     "react",
