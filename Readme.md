@@ -2,10 +2,10 @@
 React with Redux and server side rendering
 
 ## Run the application
+To run both the server and the client run the following script
 
 ```bash
-npm run server # in one terminal instance
-npm run client # in another terminal instance
+npm run dev
 ```
 
 ## How does the server side rendering work?
@@ -41,10 +41,29 @@ class Posts extends React.Component {
 }
 ```
 
-## TODO
+## Redux DevTools
+I've just discoverd a chrome extension that allows to use redux dev tools. I reccomend it:  [redux-devtools-extension](https://github.com/zalmoxisus/redux-devtools-extension).
+I've already enabled it in `src/client.js`.
+```js
+const devTools = window.devToolsExtension ? window.devToolsExtension() : f => f;
 
+// Create Redux store with initial state
+const store = createStore(
+  reducers,
+  initialState,
+  compose(
+    applyMiddleware(
+      thunkMiddleware // lets us dispatch() functions
+    ),
+    devTools
+  )
+);
+```
+
+
+## TODO
 - [x] add history to router
-- [ ] add devTools
+- [x] add devTools
 - [ ] remove todo example
 - [ ] add flow types
 - [x] add eslint
