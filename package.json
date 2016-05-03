@@ -4,6 +4,7 @@
   "description": "React Universal Template",
   "main": "index.js",
   "scripts": {
+    "dev": "concurrently --kill-others 'npm run client' 'npm run server'",
     "server": "nodemon --delay 1 index.js",
     "client": "node --require babel-register ./webpack/webpackDevServer.js"
   },
@@ -24,6 +25,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.7.2",
+    "concurrently": "^2.0.0",
     "eslint": "^2.8.0",
     "eslint-plugin-react": "^4.3.0",
     "nodemon": "^1.9.1",

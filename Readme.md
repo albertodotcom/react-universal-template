@@ -51,5 +51,5 @@ class Posts extends React.Component {
 - [ ] add css
 - [ ] add pasta templates
 - [ ] create script to ship production code
-- [ ] client hot reload
-- [ ] server hot reload
+- [x] client hot reload
+- [x] server hot reload

@@ -1,12 +1,17 @@
+/* eslint no-console: 0 */
+
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import webpackConf from './webpack.config.babel.js';
+import CONFIG from '../config.js';
 
 let webpackDevConf = Object.assign({}, webpackConf);
 
-webpackDevConf.entry.unshift('webpack-dev-server/client?http://localhost:3001/', 'webpack/hot/dev-server');
+const { HOSTNAME, PORT } = CONFIG;
 
-webpackDevConf.output.publicPath = 'http://localhost:3001/';
+webpackDevConf.entry.unshift(`webpack-dev-server/client?http://${HOSTNAME}:${PORT + 1}/`, 'webpack/hot/dev-server');
+
+webpackDevConf.output.publicPath = `http://${HOSTNAME}:${PORT + 1}/`;
 
 webpackDevConf.module.loaders = webpackDevConf.module.loaders.map(loader => {
   switch (loader.name) {
@@ -34,4 +39,7 @@ let server = new WebpackDevServer(compiler, {
   inline: true,
   noInfo: true,
 });
-server.listen(3001);
+
+server.listen(PORT + 1, HOSTNAME, () => {
+  console.info(`==> 💁  Webpack development server listening on "${HOSTNAME}:${PORT + 1}"`);
+});

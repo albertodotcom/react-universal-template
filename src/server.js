@@ -1,3 +1,5 @@
+/* eslint no-console: 0 */
+
 import Express from 'express';
 import React from 'react';
 import { createStore, applyMiddleware } from 'redux';
@@ -9,9 +11,10 @@ import { match, RouterContext } from 'react-router';
 import routes from './routes';
 import { syncHistoryWithStore } from 'react-router-redux';
 import createMemoryHistory from 'history/lib/createMemoryHistory';
+import CONFIG from '../config';
 
 const app = Express();
-const port = 3000;
+const { PORT, HOSTNAME } = CONFIG;
 
 app.use('/dist', Express.static('dist'));
 app.use(Express.static('public'));
@@ -86,4 +89,7 @@ async function handleRender(RouterContext, renderProps, store) {
   return renderFullPage(html, initialState);
 }
 
-app.listen(port);
+app.listen(PORT, HOSTNAME, () => {
+  console.info('==> ✅  Server is listening');
+  console.info(`==> 🌎  Go to http://${HOSTNAME}:${PORT}`);
+});
