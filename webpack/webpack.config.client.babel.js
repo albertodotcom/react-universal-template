@@ -1,10 +1,10 @@
 import path from 'path';
+import webpack from 'webpack';
 
 // ExtractTextPlugin => create a build is a separate file
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 // css
-import precss from 'precss';
 import autoprefixer from 'autoprefixer';
 
 export default {
@@ -29,14 +29,18 @@ export default {
         name: 'css',
         test: /\.scss$/,
         exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract('style','css!sass'),
+        loader: ExtractTextPlugin.extract('style','css!postcss!sass'),
       },
     ],
   },
   postcss: () => {
-    return [precss, autoprefixer];
+    return [
+      autoprefixer,
+    ];
   },
   plugins: [
+    new webpack.NoErrorsPlugin(),
+
     // css files from the extract-text-plugin loader
     new ExtractTextPlugin('css', 'style.css'),
   ],

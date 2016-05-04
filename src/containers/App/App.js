@@ -1,7 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { completeTodo, fetchTodos } from '../../actions/todos.js';
-import css from './App.scss';
+import './App.scss';
 
 const mapStateToProps = (state) => {
   return {
@@ -47,7 +47,7 @@ export class App extends React.Component {
     const { todos, onClick } = this.props;
     return (
       <div>
-        <h1>Universal App in React</h1>
+        <h1 className='app'>Universal App in React</h1>
         <ul>
           {this.renderEl(todos, onClick)}
         </ul>

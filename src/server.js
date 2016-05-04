@@ -28,6 +28,7 @@ function renderFullPage(html, initialState) {
         <title>Redux Universal Example</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
+        <link rel="stylesheet" href="http://localhost:3001/style.css">
       </head>
       <body>
         <div id="root">${html}</div>

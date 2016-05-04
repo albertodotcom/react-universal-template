@@ -64,9 +64,10 @@ const store = createStore(
 ## TODO
 - [x] add history to router
 - [x] add devTools
-- [ ] remove todo example
+- [ ] add script to remove todo example
 - [x] add eslint
 - [x] add css
+- [ ] add hot reload on css
 - [ ] add pasta templates
 - [ ] create script to ship production code
 - [x] client hot reload
