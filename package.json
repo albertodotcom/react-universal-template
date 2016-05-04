@@ -8,7 +8,7 @@
     "compile-server": "webpack --config webpack/webpack.config.server.babel.js",
     "compile-client": "webpack --config webpack/webpack.config.client.babel.js",
     "build": "npm run compile-server && npm run compile-client",
-    "start": "node ./dist/server",
+    "start": "node ./dist/server"
   },
   "keywords": [
     "react",
