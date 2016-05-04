@@ -2,8 +2,9 @@
 
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import webpackConf from './webpack.config.babel.js';
+import webpackConf from './webpack.config.client.babel.js';
 import CONFIG from '../config.js';
+import NotifyPlugin from './notifyPlugin.js';
 
 let webpackDevConf = Object.assign({}, webpackConf);
 
@@ -28,18 +29,22 @@ webpackDevConf.module.loaders = webpackDevConf.module.loaders.map(loader => {
   }
 });
 
-webpackDevConf.plugins = [
-  new webpack.HotModuleReplacementPlugin(),
-];
+export default function createClientDevServer(afterFECompileCb) {
+  webpackDevConf.plugins = [
+    ...webpackDevConf.plugins,
+    new webpack.HotModuleReplacementPlugin(),
+    new NotifyPlugin(afterFECompileCb),
+  ];
 
-let compiler = webpack(webpackDevConf);
+  let compiler = webpack(webpackDevConf);
 
-let server = new WebpackDevServer(compiler, {
-  hot: true,
-  inline: true,
-  noInfo: true,
-});
+  let server = new WebpackDevServer(compiler, {
+    hot: true,
+    inline: true,
+    noInfo: true,
+  });
 
-server.listen(PORT + 1, HOSTNAME, () => {
-  console.info(`==> 💁  Webpack development server listening on "${HOSTNAME}:${PORT + 1}"`);
-});
+  server.listen(PORT + 1, HOSTNAME, () => {
+    console.info(`==> 💁  Webpack development server listening on "${HOSTNAME}:${PORT + 1}"`);
+  });
+}

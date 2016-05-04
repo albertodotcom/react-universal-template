@@ -4,9 +4,9 @@
   "description": "React Universal Template",
   "main": "index.js",
   "scripts": {
-    "dev": "concurrently --kill-others 'npm run client' 'npm run server'",
-    "server": "nodemon --delay 1 index.js",
-    "client": "node --require babel-register ./webpack/webpackDevServer.js"
+    "dev": "node --require babel-register index.js",
+    "server": "webpack --config webpack/webpack.config.server.babel.js",
+    "client": "webpack --config webpack/webpack.config.client.babel.js"
   },
   "keywords": [
     "react",
@@ -17,6 +17,7 @@
   "author": "Alberto Forni",
   "license": "ISC",
   "devDependencies": {
+    "autoprefixer": "^6.3.6",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.2",
     "babel-loader": "^6.2.4",
@@ -26,10 +27,17 @@
     "babel-preset-stage-0": "^6.5.0",
     "babel-register": "^6.7.2",
     "concurrently": "^2.0.0",
+    "css-loader": "^0.23.1",
     "eslint": "^2.8.0",
     "eslint-plugin-react": "^4.3.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "json-loader": "^0.5.4",
+    "node-sass": "^3.7.0",
     "nodemon": "^1.9.1",
+    "precss": "^1.4.0",
     "react-hot-loader": "^1.3.0",
+    "sass-loader": "^3.2.0",
+    "style-loader": "^0.13.1",
     "webpack": "^1.12.15",
     "webpack-dev-server": "^1.14.1"
   },
@@ -42,6 +50,7 @@
     "react-router": "^2.2.4",
     "react-router-redux": "^4.0.2",
     "redux": "^3.4.0",
-    "redux-thunk": "^2.0.1"
+    "redux-thunk": "^2.0.1",
+    "underscore": "^1.8.3"
   }
 }

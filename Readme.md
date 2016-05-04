@@ -65,10 +65,10 @@ const store = createStore(
 - [x] add history to router
 - [x] add devTools
 - [ ] remove todo example
-- [ ] add flow types
 - [x] add eslint
-- [ ] add css
+- [x] add css
 - [ ] add pasta templates
 - [ ] create script to ship production code
 - [x] client hot reload
 - [x] server hot reload
+- [ ] add option for using only client side rendering

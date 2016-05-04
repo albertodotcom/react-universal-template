@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
-import { completeTodo, fetchTodos } from '../actions/todos.js';
+import { completeTodo, fetchTodos } from '../../actions/todos.js';
+import css from './App.scss';
 
 const mapStateToProps = (state) => {
   return {

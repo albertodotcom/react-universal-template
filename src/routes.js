@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import { Router, Route } from 'react-router';
-import App from './containers/App';
+import App from './containers/App/App';
 
 export default function Routes({history}) {
   return (
