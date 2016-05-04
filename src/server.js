@@ -16,9 +16,11 @@ import CONFIG from '../config';
 const app = Express();
 const { PORT, HOSTNAME } = CONFIG;
 
-app.use('/dist', Express.static('dist'));
+app.use('/assets', Express.static('dist/client'));
 app.use(Express.static('public'));
 app.use(handlePageRequest);
+
+const assetsPath = CONFIG.IS_PROD ? '/assets' : 'http://localhost:3001';
 
 function renderFullPage(html, initialState) {
   return `
@@ -28,14 +30,14 @@ function renderFullPage(html, initialState) {
         <title>Redux Universal Example</title>
         <link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
         <link rel="icon" href="/favicon.ico" type="image/x-icon">
-        <link rel="stylesheet" href="http://localhost:3001/style.css">
+        <link rel="stylesheet" href="${assetsPath}/style.css">
       </head>
       <body>
         <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
         </script>
-        <script src="http://localhost:3001/bundle.js"></script>
+        <script src="${assetsPath}/bundle.js"></script>
       </body>
     </html>
   `;

@@ -10,7 +10,7 @@ import autoprefixer from 'autoprefixer';
 export default {
   entry: ['babel-polyfill', './src/client.js'],
   output: {
-    path: path.resolve(__dirname, 'dist'),
+    path: path.resolve(__dirname, '../dist/client'),
     filename: 'bundle.js',
   },
   module: {
