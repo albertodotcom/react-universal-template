@@ -6,6 +6,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 // css
 import autoprefixer from 'autoprefixer';
+import precss from 'precss';
 
 export default {
   entry: ['babel-polyfill', './src/client.js'],
@@ -29,12 +30,13 @@ export default {
         name: 'css',
         test: /\.scss$/,
         exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract('style','css!postcss!sass'),
+        loader: ExtractTextPlugin.extract('style','css!postcss'),
       },
     ],
   },
   postcss: () => {
     return [
+      precss,
       autoprefixer,
     ];
   },
