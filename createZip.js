@@ -18,5 +18,6 @@ archive.on('error', function(err){
 archive.pipe(output);
 archive.bulk([
   { expand: true, cwd: 'dist', src: ['**'] },
+  { expand: true, src: ['package.json'] },
 ]);
 archive.finalize();
