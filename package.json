@@ -7,9 +7,9 @@
     "dev": "node --require babel-register index.js",
     "compile-server": "NODE_ENV=development webpack --config webpack/webpack.config.server.babel.js",
     "compile-client": "NODE_ENV=development webpack --config webpack/webpack.config.client.babel.js",
-    "build": "npm run compile-server && npm run compile-client",
-    "postinstall": "if $BUILD_ASSETS; then npm run build; fi",
-    "start": "node ./dist/server"
+    "build": "npm run compile-server && npm run compile-client && npm run createZip",
+    "start": "node ./dist/server",
+    "createZip": "node createZip.js"
   },
   "keywords": [
     "react",
@@ -20,6 +20,7 @@
   "author": "Alberto Forni",
   "license": "ISC",
   "devDependencies": {
+    "archiver": "^1.0.0",
     "autoprefixer": "^6.3.6",
     "babel-core": "^6.7.6",
     "babel-eslint": "^6.0.2",
