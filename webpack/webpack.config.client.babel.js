@@ -8,6 +8,18 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import autoprefixer from 'autoprefixer';
 import precss from 'precss';
 
+/*
+  set environment variables for the UI
+*/
+const CONFIG = require('../config');
+let CONFIG_UI = CONFIG.UI;
+for (var key in CONFIG_UI) {
+  CONFIG_UI[key] = JSON.stringify(CONFIG_UI[key]);
+}
+
+export const envGlobalVars = new webpack.DefinePlugin(CONFIG_UI);
+
+
 export default {
   entry: ['babel-polyfill', './src/client.js'],
   output: {
@@ -41,6 +53,7 @@ export default {
     ];
   },
   plugins: [
+    envGlobalVars,
     new webpack.NoErrorsPlugin(),
 
     // css files from the extract-text-plugin loader

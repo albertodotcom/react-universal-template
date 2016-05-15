@@ -5,4 +5,7 @@ module.exports = {
   ENV: isProduction ? 'production' : 'development',
   PORT: process.env.PORT || 3000,
   HOSTNAME: process.env.HOSTNAME || 'localhost',
+  UI: {
+    'process.env.NODE_ENV': isProduction ? 'production' : 'development',
+  },
 };
