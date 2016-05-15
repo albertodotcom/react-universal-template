@@ -69,7 +69,7 @@ const store = createStore(
 - [x] add css
 - [ ] add hot reload on css
 - [ ] add pasta templates
-- [ ] create script to ship production code
+- [x] create script to ship production code
 - [x] client hot reload
 - [x] server hot reload
 - [ ] add option for using only client side rendering
