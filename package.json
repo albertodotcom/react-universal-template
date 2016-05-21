@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "dev": "node --require babel-register index.js",
-    "compile-server": "webpack -p --config webpack/webpack.config.server.babel.js",
-    "compile-client": "webpack -p --config webpack/webpack.config.client.babel.js",
+    "compile-server": "NODE_ENV=production webpack -p --config webpack/webpack.config.server.babel.js",
+    "compile-client": "NODE_ENV=production webpack -p --config webpack/webpack.config.client.babel.js",
     "build": "npm run compile-server && npm run compile-client",
     "start": "node ./dist/server.js"
   },
