@@ -73,3 +73,4 @@ const store = createStore(
 - [x] client hot reload
 - [x] server hot reload
 - [ ] add option for using only client side rendering
+- [ ] add tests

@@ -8,7 +8,7 @@
     "compile-server": "webpack -p --config webpack/webpack.config.server.babel.js",
     "compile-client": "webpack -p --config webpack/webpack.config.client.babel.js",
     "build": "npm run compile-server && npm run compile-client",
-    "start": "node ./dist/server"
+    "start": "forever --minUptime 1000ms --spinSleepTime 1000ms start ./dist/server.js"
   },
   "keywords": [
     "react",
@@ -43,6 +43,7 @@
     "babel-polyfill": "^6.7.4",
     "deep-equal": "^1.0.1",
     "express": "^4.13.4",
+    "forever": "^0.15.1",
     "history": "^2.1.0",
     "invariant": "^2.2.1",
     "object-assign": "^4.1.0",
