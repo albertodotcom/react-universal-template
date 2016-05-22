@@ -1,5 +1,5 @@
 import path from 'path';
-import webpackClient from './webpack.config.client.babel.js';
+import webpackBase from './webpack.config.base.babel.js';
 import fs from 'fs';
 
 let nodeModules = {};
@@ -12,7 +12,7 @@ fs.readdirSync('node_modules')
   });
 
 let webpackServer = {
-  ...webpackClient,
+  ...webpackBase,
   target: 'node',
   entry: ['babel-polyfill', './src/server.js'],
   output: {

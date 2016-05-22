@@ -2,7 +2,7 @@
 
 import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
-import webpackConf from './webpack.config.client.babel.js';
+import webpackConf from './webpack.config.base.babel.js';
 import CONFIG from '../config.js';
 import NotifyPlugin from './notifyPlugin.js';
 
