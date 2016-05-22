@@ -1,3 +1,8 @@
-import webpackConf from './webpack.config.base.babel.js';
+import webpackBase from './webpack.config.base.babel.js';
 
-export default webpackConf;
+const webpackClient = {
+  ...webpackBase,
+  target: 'web',
+};
+
+export default webpackClient;

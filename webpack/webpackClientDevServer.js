@@ -10,6 +10,7 @@ let webpackDevConf = Object.assign({}, webpackConf);
 
 const { HOSTNAME, PORT } = CONFIG;
 
+webpackDevConf.devtool = 'cheap-module-eval-source-map';
 webpackDevConf.entry.unshift(`webpack-dev-server/client?http://${HOSTNAME}:${PORT + 1}/`, 'webpack/hot/dev-server');
 
 webpackDevConf.output.publicPath = `http://${HOSTNAME}:${PORT + 1}/`;

@@ -11,7 +11,7 @@ import precss from 'precss';
 /*
   set environment variables for the UI
 */
-const CONFIG = require('../config');
+import CONFIG from '../config';
 let CONFIG_UI = CONFIG.UI;
 for (var key in CONFIG_UI) {
   CONFIG_UI[key] = JSON.stringify(CONFIG_UI[key]);
