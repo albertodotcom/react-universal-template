@@ -42,7 +42,7 @@ export default {
         name: 'css',
         test: /\.scss$/,
         exclude: /node_modules/,
-        loader: ExtractTextPlugin.extract('style','css!postcss'),
+        loader: ExtractTextPlugin.extract('style','css?modules&importLoaders=1&localIdentName=[local]---[hash:base64:5]!postcss'),
       },
     ],
   },

@@ -72,10 +72,8 @@ function handlePageRequest(req, res) {
 
 async function handleRender(RouterContext, renderProps, store) {
   const dataFetching = renderProps.components
-    .filter(c => c && typeof c.fetchData)
-    .map(fetchDataComponent => {
-      return fetchDataComponent.fetchData(store.dispatch);
-    });
+    .filter(component => component && typeof component.fetchData === 'function')
+    .map(fetchDataComponent => fetchDataComponent.fetchData(store.dispatch));
 
   await Promise.all(dataFetching);
 

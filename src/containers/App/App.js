@@ -1,7 +1,9 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { completeTodo, fetchTodos } from '../../actions/todos.js';
-import './App.scss';
+
+import styleable from 'react-styleable';
+import css from './App.scss';
 
 const mapStateToProps = (state) => {
   return {
@@ -14,7 +16,7 @@ const mapDispatchToProps = (dispatch) => {
     onClick: (id) => {
       dispatch(completeTodo(id));
     },
-    fetchTodos: () => {
+    fetchData: () => {
       dispatch(fetchTodos());
     },
   };
@@ -28,6 +30,7 @@ export class App extends React.Component {
   static propTypes = {
     todos: PropTypes.array.isRequired,
     onClick: PropTypes.func.isRequired,
+    css: PropTypes.object.isRequired,
   };
 
   renderEl(todos, onClick) {
@@ -44,10 +47,11 @@ export class App extends React.Component {
   }
 
   render() {
-    const { todos, onClick } = this.props;
+    const { todos, onClick, css } = this.props;
+
     return (
       <div>
-        <h1 className='app'>Universal App in React</h1>
+        <h1 className={css.app}>Universal App in React</h1>
         <ul>
           {this.renderEl(todos, onClick)}
         </ul>
@@ -56,4 +60,9 @@ export class App extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+let styleableComponent = styleable(css)(App);
+
+// TODO submit a PR to fix this quirk
+styleableComponent.fetchData = App.fetchData;
+
+export default connect(mapStateToProps, mapDispatchToProps)(styleableComponent);

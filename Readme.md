@@ -67,10 +67,11 @@ const store = createStore(
 - [ ] add script to remove todo example
 - [x] add eslint
 - [x] add css
-- [ ] add hot reload on css
+- [x] add hot reload on css
 - [ ] add pasta templates
 - [x] create script to ship production code
 - [x] client hot reload
 - [x] server hot reload
 - [ ] add option for using only client side rendering
 - [ ] add tests
+- [ ] fetchData on componentDidMount only if hasn't been fetched from server side
