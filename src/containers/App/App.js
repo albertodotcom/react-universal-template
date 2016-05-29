@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { completeTodo, fetchTodos } from '../../actions/todos.js';
+import { Link } from 'react-router';
 
 import styleable from 'react-styleable';
 import css from './App.scss';
@@ -31,7 +32,12 @@ export class App extends React.Component {
     todos: PropTypes.array.isRequired,
     onClick: PropTypes.func.isRequired,
     css: PropTypes.object.isRequired,
+    fetchData: PropTypes.func.isRequired,
   };
+
+  componentDidMount() {
+    this.props.fetchData();
+  }
 
   renderEl(todos, onClick) {
     return todos.map((todo, i) => {
@@ -52,6 +58,7 @@ export class App extends React.Component {
     return (
       <div>
         <h1 className={css.app}>Universal App in React</h1>
+        <Link to='/test'>Test</Link>
         <ul>
           {this.renderEl(todos, onClick)}
         </ul>

@@ -22,7 +22,7 @@ app.use(handlePageRequest);
 
 const assetsPath = CONFIG.IS_PROD ? '/assets' : 'http://localhost:3001';
 
-function renderFullPage(html, initialState) {
+function renderFullPage(html, initialState, firstRoute) {
   return `
     <!doctype html>
     <html>
@@ -36,6 +36,7 @@ function renderFullPage(html, initialState) {
         <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)}
+          window.__FIRST_ROUTE__ = ${JSON.stringify(firstRoute)}
         </script>
         <script src="${assetsPath}/bundle.js"></script>
       </body>
@@ -87,7 +88,7 @@ async function handleRender(RouterContext, renderProps, store) {
   const initialState = store.getState();
 
   // Send the rendered page back to the client
-  return renderFullPage(html, initialState);
+  return renderFullPage(html, initialState, initialState.routing.locationBeforeTransitions.pathname);
 }
 
 app.listen(PORT, HOSTNAME, () => {

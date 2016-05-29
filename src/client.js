@@ -40,12 +40,23 @@ const initialState = window.__INITIAL_STATE__;
 
 const devTools = window.devToolsExtension ? window.devToolsExtension() : f => f;
 
+const checkFirstRoute = store => next => action => {
+  const currentRoute = store.getState().routing.locationBeforeTransitions.pathname;
+  if (window.__FIRST_ROUTE__ === currentRoute) {
+    window.__FIRST_ROUTE__ = '';
+    return;
+  }
+
+  next(action);
+};
+
 // Create Redux store with initial state
 const store = createStore(
   reducers,
   initialState,
   compose(
     applyMiddleware(
+      checkFirstRoute,
       thunkMiddleware // lets us dispatch() functions
     ),
     devTools
